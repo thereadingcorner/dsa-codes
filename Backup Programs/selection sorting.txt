@@ -1,0 +1,33 @@
+#include<stdio.h>
+main()
+{
+	int arr[10],size,i,j,item,min,temp;
+	printf("enter the size of array");
+	scanf("%d",&size);
+	for(i=0;i<size;i++)
+	{
+		printf("enter the value");
+		scanf("%d",&arr[i]);
+	}
+	printf(" enter the value to search");
+	scanf("&d",&item);
+	for(i=0;i<size-1;i++)
+	{
+		min=i;
+		for(j=i+1;j<size;j++)
+		{
+			if(arr[j]<arr[min]);
+			{
+				min=j;
+			}
+		}
+		if(min!=i)
+		{
+			temp=arr[min];
+			arr[min]=arr[i];
+			arr[i]=temp;
+		}
+	}
+	getchar();
+	getchar();
+}

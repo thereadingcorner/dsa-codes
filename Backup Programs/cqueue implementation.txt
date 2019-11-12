@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<stdlib.h>
+int QUEUE[30],size,front=-1,rear=-1;
+void insert();
+void d1elete();
+void display();
+int main()
+{
+int choice;
+{
+	printf("\n enter the size of QUEUE \n");
+	scanf("%d",&size);
+}
+   while(1)
+ {
+	printf("\n1.insert\n2.delete\n3.display\n4.exit\n");
+	printf("enter your choice");
+	scanf("%d",&choice);
+	switch(choice)
+	{
+		case 1:insert();
+		break;
+		case 2:d1elete();
+		break;
+		case 3:display();
+		break;
+		case 4:exit(0);
+		default:printf("\n wrong choice \n");
+	}
+  }
+  return 0;
+}
+void insert()
+{
+	int item;
+	 if((front==0&&rear==29)||(front>0&&rear==front-1))
+	{
+		printf("\n QUEUE is overflow");
+	}
+	else
+	{
+	printf("\n enter the value to insert");
+	scanf("%d",&item);
+	if(rear==-1)
+	{
+		front++;
+		rear++;
+	}	
+	else if(rear==size-1)
+	{
+		rear=0;
+	}
+	else
+	{
+		rear++;
+	}
+	QUEUE[rear]=item;
+	}
+}
+void d1elete()
+{
+	printf("\n deleted value=%d",QUEUE[front]);
+	if(front==size-1)
+	{
+		front=0;
+	}
+	else if(front==rear)
+	{
+		front=-1;
+		rear=-1;
+	}
+	else
+	{
+		front++;
+	}
+}
+void display()
+{
+	int index;
+	if(front==-1)
+	{
+		printf("\n QUEUE is underflow");
+	}
+	
+	if(rear>=front)
+	  {
+		printf("\n values of QUEUE are\n");
+	  
+	    for(index=front;index<=rear;index++)
+		{
+		 printf("%d\t",QUEUE[index]);
+		}
+	  }	
+	else
+	{
+	for(index=front;index<size;index++)
+	{
+		printf("%d\t",QUEUE[index]);
+	}
+	for(index=0;index<=rear;index++)
+	{
+		printf("%d\t",QUEUE[index]);
+	}
+  }
+}

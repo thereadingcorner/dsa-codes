@@ -1,0 +1,172 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node* lchild;
+	int info;
+	struct node* rchild;
+};
+void preorder(struct node*);
+void inorder(struct node*);
+void postorder(struct node*);
+//void insert();
+//void delete1();
+void search();
+void sort();
+void smallest();
+void largest();
+struct node *root=NULL;
+struct node*temp;
+main()
+{
+	int choice,temp;
+	while(1)
+	{
+		printf("\n1.preorder\n2.inorder\n3.postorder\n6.search\n7.sort\n8.smallest\n9.largest\n10.exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+             case1:preorder(root);
+                  break;
+             case2:inorder(root);
+                  break;
+             case3:postorder(root);
+                  break;
+             //case4:inseert();
+                  //break;
+             //case5:delete1();
+                  //break;
+             case6:search();
+                  break;
+             case7:sort();
+                  break;
+             case8:smallest();
+                  break;
+             case9:largest();
+                  break;
+             case10:exit(0);
+			 default:printf("\n wrong choice\n");   
+    }
+  }
+  return 0;
+}
+struct node *create_node(int v)
+{
+	struct node *c=(struct node*)malloc(sizeof(struct node));
+	c->info=v;
+	c->lchild=c->rchild=NULL;
+	return c;
+}
+
+void inorder(struct node* temp)
+{
+	if(temp!=NULL)
+	{
+		inorder(temp->lchild);
+		printf("%d\t",temp->info);
+		inorder(temp->rchild);
+	}
+}
+
+void postorder(struct node*temp)
+{
+	if(temp!=NULL)
+	{
+		postorder(temp->lchild);
+		postorder(temp->rchild);
+		printf("%d\t",temp->info);
+	}
+}
+
+void preorder(struct node*temp)
+{
+	if(temp!=NULL)
+	{
+		printf("%d\t",temp->info);
+		preorder(temp->lchild);
+		preorder(temp->rchild);
+	}
+}
+
+void sort()
+{
+	if(temp!=NULL)
+	{
+	temp->lchild;
+	printf("%d\t",temp->info);
+	temp->rchild;
+	}
+}
+
+void search()
+{
+	struct node*temp;
+	int item;
+	if(root==NULL)
+	{
+		printf("tree is empty");
+	}
+	else
+	{
+		printf("enter the value to search");
+		scanf("%d",&item);
+		temp=root;
+		while(temp!=NULL)
+		{
+			if(temp->info==item)
+			{
+				printf("item is present");
+				break;
+			}
+			else if(item<temp->info)
+			{
+				temp=temp->lchild;
+			}
+			else
+			{
+				temp=temp->rchild;
+			}
+			if(temp==NULL)
+			{
+				printf("node is not found");
+			}
+		}
+	}
+}
+
+void smallest()
+{
+	struct node*temp;
+	if(root==NULL)
+	{
+		printf("tree is empty");
+	}
+	else
+	{
+		temp=root;
+		while(temp->lchild!=NULL)
+		{
+			temp=temp->lchild;
+		}
+		printf("smallest=%d",temp->info);
+	}
+}
+
+void largest()
+{
+	struct node*temp;
+	if(root==NULL)
+	{
+		printf("tree is empty");
+	}
+	else
+	{
+		temp=root;
+		while(temp->rchild!=NULL)
+		{
+			temp=temp->rchild;
+		}
+		printf("%d=greatest",temp->info);
+	}
+}

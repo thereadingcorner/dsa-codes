@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+void push();
+void pop();
+void display();
+struct node
+{
+	int info;
+	struct node*next;
+};
+struct node*start=NULL;
+main()
+{
+	int choice;
+	while(1)
+	{
+		printf("\n1.push\n2.pop\n3.display\n4.exit\n");
+		printf("\n enter your choice\n");
+		scanf("%d",&choice);
+		switch(choice) 
+		{
+			case 1:push();
+			break;
+			case 2:pop();
+			break;
+			case 3:display();
+			break;
+			case 4:exit(0);
+			default:printf("\n wrong choice\n");
+		}
+	}
+  getchar();
+  getchar();
+}
+
+void push()
+{
+    struct node*temp;
+    int item;
+    temp=(struct node*)malloc(sizeof(struct node));
+    if(temp==NULL)
+    {
+        printf("\n memory is not allocated \n");
+    }
+    else
+    {
+        printf("\n enter the value to insert \n");
+        scanf("%d",&item);
+        temp->info=item;
+        temp->next=NULL;
+    }
+    if(start==NULL)
+    {
+        start=temp;
+    }
+    else
+    {
+        temp->next=start;
+        start=temp;
+    }
+}
+
+void pop()
+{
+	struct node*temp;
+	if(start==NULL)
+	{
+		printf("\n list is empty\n");
+	}
+	else
+	{
+		temp=start;
+		printf("\n deleted node is %d",temp->info);
+		start=start->next;
+		free(temp);
+	}
+}
+void display()
+{
+	struct node*temp;
+	if(start==NULL)
+	{
+		printf("\n stack is underflow \n");
+	}
+	else
+	{
+		temp=start;
+		printf("\n element of stack are\n");
+		while(temp!=NULL)
+		{
+			printf("%d\n",temp->info);
+			temp=temp->next;
+		}
+	}
+}

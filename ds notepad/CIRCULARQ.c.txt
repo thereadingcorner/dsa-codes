@@ -1,0 +1,147 @@
+#include<stdio.h>
+#include<conio.h>
+#define size 5
+struct que
+{
+	char arr[size];
+	int rear, front;
+};
+
+typedef struct que Queue;
+
+void initialize(Queue *p)
+{
+	if(p!=NULL)
+	{
+		p->rear=-1;
+		p->front=-1;
+	}
+	else
+		exit(0);
+}
+
+void dispqueue(Queue *p)
+{
+	int i,n;
+
+	clrscr();
+	printf("\n");
+	if(isEmpty(p))
+	{
+		printf("Queue is empty");
+	}
+	else
+	{
+		if(p->front<=p->rear)
+			for(i=p->front;i<=p->rear;i++)
+				printf("%c  ",p->arr[i]);
+		else
+		{
+			for(i=p->front;i<=size-1;i++)
+				printf("%c  ",p->arr[i]);
+			for(i=0;i<=p->rear;i++)
+				printf("%c  ",p->arr[i]);
+		}
+	}
+}
+
+int isFull(Queue *p)
+{
+	return(p->front==(p->rear+1)%size ? 1:0);
+}
+
+int isEmpty(Queue *p)
+{
+	return(p->front==-1? 1:0);
+}
+
+void enqueue(Queue *p, char v)
+{
+	if(isFull(p))
+		printf("Queue overflows:");
+	else
+	{
+		if(p->front==-1)
+		{
+			p->front=0;
+			p->rear=0;
+		}
+		else
+			p->rear=(p->rear+1)%size;
+		p->arr[p->rear]=v;
+	}
+}
+
+char dequeue(Queue *p)
+{
+	char t;
+	if(!isEmpty(p))
+	{
+		t=p->arr[p->front];
+		//p->front++;
+		if(p->front==p->rear)
+		{
+			p->rear=-1;
+			p->front=-1;
+		}
+		else
+			p->front=(p->front+1)%size;
+		return(t);
+	}
+	else
+	{
+		printf("\nQueue underflows");
+		return '\0';
+	}
+}
+
+int main()
+{
+	Queue *q;
+	char r,v;
+	int choice,val;
+
+	q=(Queue *)malloc(sizeof(Queue));
+	do
+	{
+		clrscr();
+		printf("\n----Menu----");
+		printf("\n1:Initialize queue");
+		printf("\n2:Disp queue");
+		printf("\n3:Insert an elelement");
+		printf("\n4:Delete an element");
+		printf("\n5:Exit");
+		printf("\nEnter you choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1:
+				clrscr();
+				initialize(q);
+				break;
+			case 2:
+				clrscr();
+				dispqueue(q);
+				getch();
+				break;
+			case 3:
+				clrscr();
+				fflush(stdin);
+				printf("\nEnter value:");
+				scanf("%c",&v);
+				enqueue(q,v);
+				getch();
+				break;
+			case 4:
+				clrscr();
+				r=dequeue(q);
+				printf("%c is deleted",r);
+				getch();
+				break;
+			case 5:
+				printf("good bye");
+				break;
+		}
+	}while(choice!=5);
+	return(1);
+}

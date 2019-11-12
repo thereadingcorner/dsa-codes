@@ -1,0 +1,138 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int info;
+	struct node*next;
+};
+struct node*start=NULL;
+void create();
+void display();
+void insert_at_beginning();
+void insert_at_end();
+void main()
+{
+    int choice;
+    while(1)
+    {
+        printf("\n 1.create\n 2.display\n 3.insert_at_beginning\n 4.insert_at_end \n 5.exit\n ");
+        printf("enter your choice");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:create();
+            break;
+            case 2:display();
+            break;
+            case 3:insert_at_beginning();
+            break;
+            case 4:insert_at_end();
+            break;
+            case 5:exit(0);
+            break;
+            default:printf("enter the wrong choice");
+            break;
+        }
+    }
+}
+
+void create()
+{
+        struct node *temp,*ptr;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                exit(0);
+        }
+        printf("\nEnter the data value for the node:\t");
+        scanf("%d",&temp->info);
+        temp->next=NULL;
+        if(start==NULL)
+        {
+                start=temp;
+        }
+        else
+        {
+                ptr=start;
+                while(ptr->next!=NULL)
+                {
+                        ptr=ptr->next;
+                }
+                ptr->next=temp;
+        }
+    }
+void display()
+{
+        struct node *ptr;
+        if(start==NULL)
+        {
+                printf("\nList is empty:\n");
+                return;
+        }
+        else
+        {
+                ptr=start;
+                printf("\nThe List elements are:\n");
+                while(ptr!=NULL)
+                {
+                        printf("%d\t",ptr->info );
+                        ptr=ptr->next ;
+                }
+        }
+}
+void insert_at_beginning()
+{
+    struct node*temp;
+    int item;
+    temp=(struct node*)malloc(sizeof(struct node));
+    if(temp==NULL)
+    {
+        printf("\n memory is not allocated \n");
+    }
+    else
+    {
+        printf("\n enter the value to insert \n");
+        scanf("%d",&item);
+        temp->info=item;
+        temp->next=NULL;
+    }
+    if(start==NULL)
+    {
+        start=temp;
+    }
+    else
+    {
+        temp->next=start;
+        start=temp;
+    }
+}
+void insert_at_end()
+{
+    struct node*temp,*ptr;
+    int item;
+    temp=(struct node*)malloc(sizeof(struct node));
+    if(temp==NULL)
+    {
+        printf("\n memory is not allocated\n");
+    }
+    else
+    {
+        printf("\n enter the value to insert\n");
+        scanf("%d",&item);
+        temp->info=item;
+        temp->next=NULL;
+        if(start==NULL)
+        {
+            start=temp;
+        }
+        else
+        {
+            ptr=start;
+            while((ptr->next)!=NULL)
+            {
+                ptr=ptr->next;
+            }
+            ptr->next=temp;
+        }
+    }

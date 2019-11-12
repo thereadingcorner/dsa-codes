@@ -1,0 +1,29 @@
+#include<stdio.h>
+main()
+{
+	int arr[30],i,size,j,temp,k;
+	printf("enter the size of array");
+	scanf("%d",&size);
+	for(i=0;i<size;i++)
+	{
+		printf("enter the value");
+		scanf("%d",&arr[i]);
+	}
+	for(i=1;i<size;i++)
+	{
+		temp=arr[i];
+		for(j=i-1;j>=0 && temp<arr[j];j--)
+		{
+			arr[j+1]=arr[j];
+		}
+		j++;
+		arr[j]=temp;
+	}
+	printf("\n value are \n");
+	for(i=0;i,size;i++)
+	{
+		printf("%d\t",arr[i]);
+	}
+	getchar();
+	getchar();
+}

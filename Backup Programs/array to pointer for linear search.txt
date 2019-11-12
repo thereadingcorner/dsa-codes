@@ -1,0 +1,31 @@
+#include<stdio.h>
+main()
+{
+	int arr[30],i,size,item,flag=0,*ptr;
+	printf("enter the size of array");
+    scanf("%d",&size);
+	ptr=arr;
+	for(i=0;i<size;i++)
+	{
+		printf("enter the value");
+		scanf("%d",(ptr+i));
+	}	
+	printf("\nenter the value to search");
+	scanf("%d",&item);
+	for(i=0;i<size;i++)
+	{
+		if(*ptr+i==item)
+		{
+			printf("\n present at %d index \n",i);
+			flag++;
+		}
+	}
+	if (flag==0)
+	{
+		printf("is not present");
+	}
+	else
+	{
+		printf("\n item is present total %d time\n",flag);
+	}
+}

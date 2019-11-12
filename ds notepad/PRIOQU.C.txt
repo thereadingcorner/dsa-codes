@@ -1,0 +1,148 @@
+#include<stdio.h>
+#include<conio.h>
+struct pr
+{
+	char ele;
+	int priority;
+};
+typedef struct pr Prio;
+
+struct que
+{
+	Prio arr[20];
+	int rear, front;
+};
+
+typedef struct que Queue;
+
+void initialize(Queue *p)
+{
+	if(p==NULL)
+	{
+		printf("Memory not available");
+		exit(0);
+	}
+	p->rear=-1;
+	p->front=0;
+		
+}
+int highestPriority(Queue *p)
+{
+	int i,m=-1,pos;
+	for(i=p->rear;i>=p->front;i--)
+	{
+		if(p->arr[i].priority>m)
+		{
+			m=p->arr[i].priority;
+			pos=i;
+		}
+	}
+	return(pos);
+
+}
+
+void dispqueue(Queue *p)
+{
+	int i,n;
+
+	clrscr();
+	printf("\n");
+	if(isEmpty(p))
+	{
+		printf("Queue is empty");
+		exit(0);
+	}
+	for(i=p->front;i<=p->rear;i++)
+			printf("(%c --%d)   ",p->arr[i].ele,p->arr[i].priority);	
+}
+
+int isFull(Queue *p)
+{
+	return(p->rear==19 ? 1:0);
+}
+
+int isEmpty(Queue *p)
+{
+	return(p->rear==-1 && p->front==0 ? 1:0);
+}
+
+void enqueue(Queue *p, Prio v)
+{
+	if(isFull(p))
+	{
+		printf("\nQueue overflows");
+	}
+	p->rear++;
+	p->arr[p->rear]=v;
+}
+
+Prio dequeue(Queue *p)
+{
+	Prio t;
+	int h,i;
+	if(isEmpty(p))
+	{
+		printf("\nQueue underflows");
+		exit(0);
+	}
+	h=highestPriority(p);
+	t=p->arr[h];
+	for(i=h+1;i<=p->rear;i++)
+		p->arr[i-1]=p->arr[i];
+	p->rear--;
+	return(t);
+	
+}
+
+int main()
+{
+	Queue *q;
+	Prio r,v;
+	char ch;
+	int choice,p;
+
+	q=(Queue *)malloc(sizeof(Queue));
+	do
+	{
+		clrscr();
+		printf("\n----Menu----");
+		printf("\n1:Initialize queue");
+		printf("\n2:Disp queue");
+		printf("\n3:Insert an elelement");
+		printf("\n4:Delete an element");
+		printf("\n5:Exit");
+		printf("\nEnter you choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1:
+				clrscr();
+				initialize(q);
+				break;
+			case 2:
+				clrscr();
+				dispqueue(q);
+				getch();
+				break;
+			case 3:
+				clrscr();
+				fflush(stdin);
+				printf("\nEnter value (ele and priority):");
+				scanf("%c %d",&ch,&p);
+				v.ele=ch;
+				v.priority=p;
+				enqueue(q,v);
+				break;
+			case 4:
+				clrscr();
+				r=dequeue(q);
+				printf("%c --%d is deleted",r.ele,r.priority);
+				getch();
+				break;
+			case 5:
+				printf("good bye");
+				break;
+		}
+	}while(choice!=5);
+	return(1);
+}

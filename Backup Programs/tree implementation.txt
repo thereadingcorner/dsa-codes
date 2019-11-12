@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node*l;
+	struct node*r;
+	int info;
+};
+struct node* create_node(int);
+void inorder(struct node *);
+void postorder(struct node *);
+void preorder(struct node *);
+int main()
+{
+	struct node* root=NULL;
+	root=create_node(1);
+	root->l=create_node(2);
+	root->r=create_node(3);
+	root->l->r=create_node(4);
+	inorder(root);
+	postorder(root);
+	preorder(root);
+	getchar();
+	getchar();
+}
+struct node *create_node(int v)
+{
+	struct node *c=(struct node*)malloc(sizeof(struct node));
+	c->info=v;
+	c->l=c->r=NULL;
+	return c;
+}
+void inorder(struct node *temp)
+{
+	if(temp!=NULL)
+	{
+		inorder(temp->l);
+		printf("%d",temp->info);
+		inorder(temp->r);
+	}
+}
+
+void preorder(struct node *temp)
+{
+	if(temp!=NULL)
+	{
+		printf("%d",temp->info);
+		preorder(temp->l);
+		preorder(temp->r);
+	}
+}
+void postorder(struct node *temp)
+{
+	if(temp!=NULL)
+	{
+		postorder(temp->l);
+		postorder(temp->r);
+		printf("%d",temp->info);
+	}
+}

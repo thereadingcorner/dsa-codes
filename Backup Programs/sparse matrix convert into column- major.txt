@@ -1,0 +1,63 @@
+#include<stdio.h>
+main()
+{
+	int sparse[30][40],resultant[50][3];
+	int row,column,i,j,nzero,index=1;
+	printf(" enter total rows and columns \n");
+	scanf("%d%d",&row,&column);
+	
+	/* sparse matrix value input*/
+	for(i=0;i<row;i++)
+	 {
+	 	for(j=0;j<column;j++)
+	 	{
+	 		printf("\n enter the value ");
+	 		scanf("%d",&sparse[i][j]);
+	 	}
+	 }
+	 
+	 /* count total nzeroes value */
+	 for(i=0;i<row;i++)
+	  {
+	  	for(j=0;j<column;j++)
+	  	{
+	  		if(sparse[i][j]!=0)
+	  		{
+	  			nzero++;
+	  		}
+	  	}
+	  }
+	  
+	  /* convert to resultant matrix */
+	  resultant[0][0]=column;
+	  resultant[0][1]=row;
+	  resultant[0][2]=nzero;
+	  
+	  /* keep details of nzero in resultant*/
+	  for(j=0;j<column;j++)
+	  {
+	  	for(i=0;i<row;i++)
+	  	{
+	  		if(sparse[i][j]!=0)
+	  		{
+	  			resultant[index][0]=j;
+	            resultant[index][1]=i;
+	            resultant[index][2]=sparse[i][j];
+	            index++;
+	  		}
+	  	}
+	  }
+	  
+	  /*display the resultant matrix*/
+	  printf("\n resultant sparse matrix is\n");
+	  for(i=0;i<nzero+1;i++)
+	  {
+	  	for(j=0;j<3;j++)
+	  	{
+	  		printf("%d\t",resultant[i][j]);
+	  	}
+	  	printf("\n");
+      }
+	  getchar();
+	  getchar();
+}

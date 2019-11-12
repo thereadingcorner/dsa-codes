@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<stdlib.h>
+void insert();
+void delete1();
+void display();
+struct node
+{
+	int info;
+	struct node*next;
+};
+struct node*start=NULL;
+struct node*rear=NULL;
+main()
+{
+	int choice;
+	while(1)
+	{
+		printf("\n1.insert\n2.delete\n3.display\n4.exit\n");
+		printf("\n enter your choice\n");
+		scanf("%d",&choice);
+		switch(choice) 
+		{
+			case 1:insert();
+			break;
+			case 2:delete1();
+			break;
+			case 3:display();
+			break;
+			case 4:exit(0);
+			default:printf("\n wrong choice\n");
+		}
+	}
+  getchar();
+  getchar();
+}
+
+void insert()
+{
+	struct node*temp,*ptr;
+	int item;
+	temp=(struct node*)malloc(sizeof(struct node));
+	if(temp==NULL)
+	{
+		printf("\n memory is not allocted\n");
+	}
+	else
+	{
+		printf("\n enter the value to be inserted \n");
+		scanf("%d",&item);
+		temp->info=item;
+		temp->next=NULL;
+	}
+	if(start==NULL)
+	{
+		rear=temp;
+		start=temp;
+	}
+	else
+	{
+		rear->next=temp;
+		rear=temp;
+	}
+}
+void delete1()
+{
+	struct node*temp;
+	if(start==NULL)
+	{
+		printf("\n queue underflow \n");
+	}
+	else
+	{
+		temp=start;
+		printf("\n deleted node is %d",temp->info);
+		start=start->next;
+		free(temp);
+	}
+}
+void display()
+{
+	struct node*temp;
+	if(start==NULL)
+	{
+		printf("\n queue underflow\n");
+	}
+	else
+	{
+		temp=start;
+		printf("\n value of queue are\n");
+		while(temp!=NULL)
+		{
+			printf("%d\t",temp->info);
+			temp=temp->next;
+		}
+	}
+}

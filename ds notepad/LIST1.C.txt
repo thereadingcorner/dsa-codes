@@ -1,0 +1,382 @@
+#include<stdio.h>
+#include<conio.h>
+struct ll
+{
+	int info;
+	struct ll *next;
+};
+typedef struct ll node;
+
+node *insfirst(node *s,int v)
+{
+	node *nw=(node *) malloc(sizeof(node));
+	nw->info=v;
+	nw->next=s;
+	s=nw;
+	return(s);
+}
+node *inslast(node *s,int v)
+{
+	node *p=s,*t,*nw;
+	nw=(node *)malloc(sizeof(node));
+	nw->info=v;
+	nw->next=NULL;
+	if(s==NULL)
+		s=nw;
+	else
+	{
+		while(p->next!=NULL)
+			p=p->next;
+		p->next=nw;
+	}
+	return(s);
+}
+node *inspos(node *s,int pos,int v)
+{
+	int cnt=0;
+	node *p,*prev=NULL,*nw;
+	p=s;
+	while(p)
+	{
+		cnt++;
+		if(cnt==pos)
+			break;
+		prev=p;
+		p=p->next;
+	}
+	if(p==NULL && cnt<pos)
+		printf("Element not found in this position");
+	else
+	{
+		nw=(node *) malloc(sizeof(node));
+		nw->info=v;
+		nw->next=NULL;
+		if(p==s)
+			s=nw;
+		else if(p->next==NULL)
+			p->next=nw;
+		else
+		{
+			nw->next=prev->next;
+			prev->next=nw;
+		}
+	}
+	return(s);
+}
+node *create()
+{
+	char ch;
+	int v;
+	node *s,*p;
+	p=(node *) malloc(sizeof(node));
+	if(p==NULL)
+	{
+		printf("Memory full. Cannot create list.");
+		exit(0);
+	}
+	s=p;
+	do
+	{
+		printf("Enter node info :");
+		scanf("%d",&v);
+		p->info=v;
+		p->next=NULL;
+		fflush(stdin);
+		printf("Continue?");
+		scanf("%c",&ch);
+		if(ch=='y'||ch=='Y')
+		{
+			p->next=(node *) malloc(sizeof(node));
+			if(p->next==NULL)
+			{
+				printf("Memory full. Cannot create list.");
+				exit(0);
+			}
+			p=p->next;
+		}
+	}while(ch=='y'||ch=='Y');
+	return(s);
+}
+node *delfirst(node *s)
+{
+	node *p=s;
+	s=s->next;
+	free(p);
+	return(s);
+}
+node *dellast(node *s)
+{
+	node *p=s,*t;
+	if(p->next==NULL)
+	{
+		t=p;
+		s=NULL;
+	}
+	else
+	{
+		while(p->next->next!=NULL)
+			p=p->next;
+		t=p->next;
+		p->next=NULL;
+	}
+	free(t);
+	return(s);
+}
+node *delpos(node *s,int pos)
+{
+	int cnt=0, i;
+	node *p,*prev=NULL;
+	p=s;
+	while(p)
+	{
+		cnt++;
+		if(cnt==pos)
+			break;
+		prev=p;
+		p=p->next;
+	}
+	if(p==NULL && cnt<pos)
+		printf("Element not found in this position");
+	else if(p==s)
+		s=NULL;
+		//s=delfirst(s);
+	else
+		prev->next=p->next;
+	free(p);
+	return(s);
+}
+node *delelem(node *s)
+{
+	return(s);
+}
+void disp(node *p)
+{
+	while(p!=NULL)
+	{
+		if(p->next==NULL)
+			printf("%d,[%u]",p->info,p->next);
+		else
+			printf("%d,[%u]-->",p->info,p->next);
+		p=p->next;
+	}
+}
+
+node *reverse(node *s)
+{
+	node *p,*r=NULL,*t;
+	p=s;
+	while(p)
+	{
+		t=p;
+		p=p->next;
+		t->next=r;
+		r=t;
+	}
+	return(r);
+}
+void mdlNode(node *s)
+{
+	node *fp=s;
+	node *sp=s;
+	node *prev;
+	if(s!=NULL)
+	{
+		while(fp!=NULL && fp->next!=NULL)
+		{
+			fp=fp->next->next;
+			prev=sp;
+			sp=sp->next;
+		}
+		if(fp==NULL)
+			printf("The middle element is %d and %d \n",prev->info,sp->info);
+		else
+			printf("The middle element is %d \n",sp->info);
+	}
+}
+void nthNodetail(node *s, int n)
+{
+  node *rptr=s;
+  node *ptr=s;
+  int cnt = 0;
+  if(s!= NULL)
+  {
+	  while(cnt<n)
+	  {
+		  if(ptr == NULL)
+		  {
+			  printf("%d is greater than the no. of nodes in list", n);
+			  return;
+		  }
+		  ptr = ptr->next;
+		  cnt++;
+	  }
+	  while(ptr!=NULL)
+	  {
+		  rptr = rptr->next;
+		  ptr=ptr->next;
+	  }
+	  printf("Node no. %d from last is %d ",n, rptr->info);
+  }
+}
+void nthNodetail1(node *s, int n)
+{
+	node *rptr=s;
+	node *ptr=s;
+	int cnt = 0;
+	while(ptr!= NULL)
+	{
+		if(cnt>=n)
+			rptr=rptr->next;
+		ptr=ptr->next;
+		cnt++;
+	}
+	if(cnt<n)
+		printf("%d is greater than the no. of nodes in list", n);
+	else
+		printf("Node no. %d from last is %d ",n, rptr->info);
+}
+void isPallind(node *s)
+{
+	node *fp=s;
+	node *sp=s;
+	node * prev;
+	if(s!=NULL)
+	{
+		while(fp!=NULL && fp->next!=NULL)
+		{
+			fp=fp->next->next;
+			prev=sp;
+			sp=sp->next;
+		}
+		//printf("The middle element is [%d]\n\n",sp->info);
+	}
+	sp=reverse(sp);
+	disp(sp);
+
+}
+void main()
+{
+	node *st,nd;
+	int choice,dchoice,ps,val;
+	//clrscr();
+	do
+	{
+		clrscr();
+		printf("\n----Main Menu----");
+		printf("\n1:Create list");
+		printf("\n2:Disp list");
+		printf("\n3:Delete an element");
+		printf("\n4:Insert an elelement");
+		printf("\n5:Reverse");
+		printf("\n6:Middle node");
+		printf("\n7:nth node fom tail");
+		printf("\n8:Exit");
+		printf("\nEnter you choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1:
+				st=create();
+				break;
+			case 2:
+				disp(st);
+				getch();
+				break;
+			case 3:
+				clrscr();
+				do
+				{
+					printf("\n--Delete Menu--");
+					printf("\n1:Delete first");
+					printf("\n2:Delete last");
+					printf("\n3:Delete at a position");
+					printf("\n4:Delete an element");
+					printf("\n5:Exit");
+					printf("\nEnter you choice:");
+					scanf("%d",&dchoice);
+					switch(dchoice)
+					{
+						case 1:
+							st=delfirst(st);
+							break;
+						case 2:
+							st=dellast(st);
+							getch();
+							break;
+						case 3:
+							printf("Enter node position to delete:");
+							scanf("%d",&ps);
+							st=delpos(st,ps);
+							break;
+						case 4:
+							st=delelem(st);
+							break;
+						case 5:
+							printf("\n Leaving deletion");
+							break;
+					}
+				}while(dchoice!=5);
+				break;
+			case 4:
+				clrscr();
+				do
+				{
+					printf("\n--Insert Menu--");
+					printf("\n1:Insert at first");
+					printf("\n2:Insert at last");
+					printf("\n3:Insert at position");
+					printf("\n4:Insert after an element");
+					printf("\n5:Exit");
+					printf("\nEnter you choice:");
+					scanf("%d",&dchoice);
+					switch(dchoice)
+					{
+						case 1:
+							printf("Enter value to be inserted:");
+							scanf("%d",&val);
+							st=insfirst(st,val);
+							break;
+						case 2:
+							printf("Enter value to be inserted:");
+							scanf("%d",&val);
+							st=inslast(st,val);
+							getch();
+							break;
+						case 3:
+							printf("Enter node position to insert:");
+							scanf("%d",&ps);
+							printf("Enter value to be inserted:");
+							scanf("%d",&val);
+							st=inspos(st,ps,val);
+							break;
+						case 4:
+							st=delelem(st);
+							break;
+						case 5:
+							printf("\n Leaving insertion");
+							break;
+					}
+				}while(dchoice!=5);
+				break;
+			case 5:
+				st=reverse(st);
+				break;
+			case 6:
+				mdlNode(st);
+				getch();
+				break;
+			case 7:
+				printf("Enter node position from trail:");
+				scanf("%d",&ps);
+				//nthNodetail(st,ps);
+				nthNodetail1(st,ps);
+				//isPallind(st);
+				getch();
+				break;
+			case 8:
+				printf("I am leaving");
+				break;
+		}
+	}while(choice!=8);
+	getch();
+}
